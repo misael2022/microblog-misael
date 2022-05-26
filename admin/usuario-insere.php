@@ -1,5 +1,18 @@
 <?php 
+require "../inc/funcoes-usuarios.php";
 require "../inc/cabecalho-admin.php"; 
+
+
+if( isset($_POST['inserir'])){
+	$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+	$tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
+	$senha = codificaSenha($_POST['senha']);
+
+	inserirUsuario($conexao, $nome, $email, $senha, $tipo);
+	header("location:usuarios.php");
+}
+
 
 ?> 
        

@@ -1,7 +1,8 @@
 <?php 
+require "../inc/funcoes-usuarios.php";
 require "../inc/cabecalho-admin.php"; 
 
-
+$usuarios = lerUsuarios($conexao);
 ?>
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
@@ -27,11 +28,11 @@ require "../inc/cabecalho-admin.php";
 				</thead>
 
 				<tbody>
-
+<?php foreach( $usuarios as $usuario){ ?>
 					<tr>
-						<td> Nome... </td>
-						<td> E-mail... </td>
-						<td> Tipo... </td>
+						<td><?=$usuario['nome']?> </td>
+						<td><?=$usuario['email']?></td>
+						<td><?=$usuario['tipo']?></td>
 						<td class="text-center">
 							<a class="btn btn-warning btn-sm" 
 							href="usuario-atualiza.php">
@@ -45,7 +46,7 @@ require "../inc/cabecalho-admin.php";
 							</a>
 						</td>
 					</tr>
-
+<?php } ?>
 				</tbody>                
 			</table>
 	</div>
