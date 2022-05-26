@@ -1,23 +1,23 @@
 <?php 
+require "../inc/funcoes-usuarios.php";
 require "../inc/cabecalho-admin.php";
-
-
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$usuario = lerUmUsuario($conexao, $id);
 ?>
-       
+   
 <div class="row">
-  <article class="col-12 bg-white rounded shadow my-1 py-4">
     <h2 class="text-center">Atualizar Usuário</h2>
 
     <form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar">
 
       <div class="form-group">
         <label for="nome">Nome:</label>
-        <input class="form-control" required type="text" id="nome" name="nome">
+        <input value="<?=$usuario['nome']?>" class="form-control" required type="text" id="nome" name="nome">
       </div>
 
       <div class="form-group">
         <label for="email">E-mail:</label>
-        <input class="form-control" required type="email" id="email" name="email">
+        <input value="<?=$usuario['email']?>" class="form-control" required type="email" id="email" name="email">
       </div>
 
       <div class="form-group">
@@ -29,8 +29,13 @@ require "../inc/cabecalho-admin.php";
         <label for="tipo">Tipo:</label>
         <select class="custom-select" name="tipo" id="tipo" required>
           <option value=""></option>                  
-          <option value="editor">Editor</option>     
-          <option	value="admin">Administrador</option>
+          <option 
+          <?php if($usuario['tipo'] == 'editor') echo " selected " ?> 
+          value="editor">Editor
+        </option>     
+          <option	
+          <?php if($usuario['tipo'] == 'admin') echo " selected " ?>
+          value="admin">Administrador</option>
         </select>
       </div>
       
