@@ -1,5 +1,23 @@
 <?php
 require "inc/cabecalho.php";
+require "inc/funcoes-sessao.php";
+require "inc/funcoes-usuarios.php";
+
+if(isset($_POST['entrar'])){
+  if(empty($_POST['email']) || empty($_POST['senha'])){
+    header("location:login.php?campos_obrigatorios");
+  } else {
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $senha = $_POST['senha'];
+
+    /* Verificando no banco se existe alguem com o email informado */
+    function buscarUsuario(mysqli $conexao, string $email):array{
+      $sql = "SELECT id, nome, email, tipo, senha FROM usuarios WHERE email = '$email'";
+      $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+      return mysqli_fetch_assoc ($resultado);
+    }
+  }
+}
 ?>
 <div class="row">
   <article class="col-12 bg-white rounded shadow my-1 py-4">

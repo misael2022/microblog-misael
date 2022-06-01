@@ -20,9 +20,8 @@ if(isset($_POST['atualizar'])){
   campo senha, precisaremos verificar a senha digitada. */
     $senha = verificaSenha($_POST['senha'], $usuario['senha']);
   }
-  echo $usuario['senha'];
-  echo "<br>";
-  echo $senha;
+atualizarUsuario($conexao, $id, $nome, $email, $senha, $tipo);
+header("location:usuarios.php");
 }
 ?>      
 <div class="row">
