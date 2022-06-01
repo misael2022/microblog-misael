@@ -11,10 +11,21 @@ if(isset($_POST['entrar'])){
     $senha = $_POST['senha'];
 
     /* Verificando no banco se existe alguem com o email informado */
-    function buscarUsuario(mysqli $conexao, string $email):array{
-      $sql = "SELECT id, nome, email, tipo, senha FROM usuarios WHERE email = '$email'";
-      $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
-      return mysqli_fetch_assoc ($resultado);
+    $usuario = buscarUsuario($conexao,$email);
+
+    if($usuario != null){
+      if(password_verify($senha, $usuario['senha'])){
+        //id, nome, email, tipo
+        login(
+        $usuario['id'], $usuario['nome'],
+        $usuario['email'], $usuario['tipo']
+      );
+      header("location:admin/index.php");
+    } else {
+      header("location:login.php?senha_incorreta");
+    }
+    } else {
+        header("location:login.php?nao_encontrado");
     }
   }
 }
