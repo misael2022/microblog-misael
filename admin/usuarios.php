@@ -1,7 +1,7 @@
 <?php 
 require "../inc/funcoes-usuarios.php";
 require "../inc/cabecalho-admin.php"; 
-verificaAcessoAdimin();
+verificaAcessoAdmin();
 
 $usuarios = lerUsuarios($conexao);
 $quantidade = count($usuarios);
@@ -10,11 +10,11 @@ $quantidade = count($usuarios);
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Usuários <span class="badge badge-primary"><?=$quantidade?></span>
+		Usuários <span class="badge badge-primary"> <?=$quantidade?> </span>
 		</h2>
 
 		<p class="lead text-right">
-				<a class="btn btn-primary" href="usuario-insere.php">Inserir novo usuário</a>
+			<a class="btn btn-primary" href="usuario-insere.php">Inserir novo usuário</a>
 		</p>
 				
 		<div class="table-responsive">
@@ -30,11 +30,11 @@ $quantidade = count($usuarios);
 				</thead>
 
 				<tbody>
-<?php foreach( $usuarios as $usuario){ ?>
+<?php foreach( $usuarios as $usuario ) { ?>
 					<tr>
-						<td><?=$usuario['nome']?> </td>
-						<td><?=$usuario['email']?></td>
-						<td><?=$usuario['tipo']?></td>
+						<td> <?=$usuario['nome']?> </td>
+						<td> <?=$usuario['email']?> </td>
+						<td> <?=$usuario['tipo']?> </td>
 						<td class="text-center">
 							<a class="btn btn-warning btn-sm" 
 							href="usuario-atualiza.php?id=<?=$usuario['id']?>">

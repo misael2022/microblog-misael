@@ -1,9 +1,10 @@
 <?php 
 require "../inc/funcoes-usuarios.php";
 require "../inc/cabecalho-admin.php"; 
-verificaAcessoAdimin();
+verificaAcessoAdmin();
 
-if( isset($_POST['inserir'])){
+
+if( isset($_POST['inserir']) ){
 	$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 	$tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -13,9 +14,8 @@ if( isset($_POST['inserir'])){
 	header("location:usuarios.php");
 }
 
+?>
 
-?> 
-       
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		<h2 class="text-center">Inserir Usuário</h2>

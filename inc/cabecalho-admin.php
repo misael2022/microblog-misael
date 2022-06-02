@@ -2,9 +2,9 @@
 require "funcoes-sessao.php";
 verificaAcesso();
 
-// Detectando quando o sair e acionado
+// Detectando quando o sair é acionado
 if(isset($_GET['sair'])){
-  // Chamamos a função logout
+  // Chamamos a função de logout()
   logout();
 }
 
@@ -37,7 +37,12 @@ $pagina = basename($_SERVER['PHP_SELF']);
             <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="meu-perfil.php">Meu perfil</a></li>
             <li class="nav-item"><a class="nav-link" href="posts.php">Posts</a></li>
+
+            <?php if($_SESSION['tipo'] == 'admin'){ ?>
             <li class="nav-item"><a class="nav-link" href="usuarios.php">Usuários</a></li>
+            <?php } ?>
+
+
             <li class="nav-item"><a class="nav-link" href="../index.php" target="_blank">Área pública</a></li>
             <li class="nav-item"><a class="nav-link" href="?sair">&times; Sair</a></li>
           </ul>
