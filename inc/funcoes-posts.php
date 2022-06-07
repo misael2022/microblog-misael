@@ -13,7 +13,7 @@ function inserirPost(mysqli $conexao, string $titulo, string $texto, string $res
 
 
 /* Usada em posts.php */
-function lerPosts(mysqli $conexao):array {
+function lerPosts(mysqli $conexao, int $idUsuarioLogado):array {
     $sql = "";
 
     $resultado = mysqli_query($conexao,$sql) or die(mysqli_error($conexao));
