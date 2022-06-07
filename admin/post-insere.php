@@ -14,9 +14,9 @@ if (isset($_POST['inserir'])) {
   upload($imagem);
 
   // Função inserirPosts (atenção: mandaremos apenas o name da imagem)
-  inserirPost($conexao, $titulo, $texto, $resumo, $imagem['name'], $_SESSION['id']);
+ /*  inserirPost($conexao, $titulo, $texto, $resumo, $imagem['name'], $_SESSION['id']);
 
-  header("location:posts.php");
+  header("location:posts.php"); */
 }
 
 ?>

@@ -56,15 +56,27 @@ function excluirPost(mysqli $conexao){
 /* Funções utilitárias */
 
 /* Usada em post-insere.php e post-atualiza.php */
-function upload(){
-    
+function upload($arquivo){
+    $tiposValidos = ["image/png", 
+                     "image/jpeg", 
+                     "image/gif", 
+                     "image/svg+xml"
+];
+
+    // Verificar se o arquivo enviado NÃO É um dos aceitos
+    if( !in_array($arquivo['type'], $tiposValidos)){
+        die("<script>alert('formato é invalido'); history.back();</script> ");
+    }
 } // fim upload
 
 
 
 /* Usada em posts.php e páginas da área pública */
 function formataData(){ 
-    
+    // Definindo os tipos de imagem aceitos
+
+
+
 } // fim formataData
 
 
