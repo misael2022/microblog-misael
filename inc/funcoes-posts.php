@@ -6,8 +6,7 @@ function inserirPost(
     mysqli $conexao, string $titulo, string $texto, string $resumo, 
     string $imagem, int $idUsuarioLogado){
 
-    $sql = "INSERT INTO posts(titulo, texto, resumo, imagem, usuario_id)
-            VALUES('$titulo', '$texto', '$resumo', '$imagem', $idUsuarioLogado)";
+    $sql = "INSERT INTO posts(titulo, texto, resumo, imagem, usuario_id) VALUES('$titulo', '$texto', '$resumo', '$imagem', $idUsuarioLogado)";
     
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim inserirPost
@@ -62,14 +61,15 @@ function lerUmPost(mysqli $conexao,
 
 
 /* Usada em post-atualiza.php */
-function atualizarPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, string $tipoUsuarioLogado, string $titulo, string $texto,string $resumo, string $imagem){
-
-    if( $tipoUsuarioLogado == 'admin'){
-        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto',
+function atualizarPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, string $tipoUsuarioLogado, string $titulo, string $texto, string $resumo, 
+string $imagem){
+    
+    if( $tipoUsuarioLogado == 'admin' ){
+        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto', 
         resumo = '$resumo', imagem = '$imagem' WHERE id = $idPost";
     } else {
-        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto'
-        resumo = '$resumo', imagem = '$imagem'
+        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto', 
+        resumo = '$resumo', imagem = '$imagem' 
         WHERE id = $idPost AND usuario_id = $idUsuarioLogado";
     }
 
@@ -79,8 +79,15 @@ function atualizarPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, strin
 
 
 /* Usada em post-exclui.php */
-function excluirPost(mysqli $conexao){    
-    $sql = "";
+function excluirPost(mysqli $conexao, int $idPost, 
+                int $idUsuarioLogado, string $tipoUsuarioLogado){    
+    
+    if($tipoUsuarioLogado == 'admin'){
+        $sql = "DELETE FROM posts WHERE id = $idPost";
+    } else {
+        $sql = "DELETE FROM posts WHERE id = $idPost 
+                AND usuario_id = $idUsuarioLogado";
+    }                 
 
 	mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim excluirPost
