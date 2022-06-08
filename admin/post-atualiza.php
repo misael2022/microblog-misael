@@ -12,13 +12,39 @@ $tipoUsuarioLogado = $_SESSION['tipo'];
 // Chamamos a função passando os parâmetros e pegamos o resultado dela
 $post = lerUmPost($conexao, $idPost, $idUsuarioLogado, $tipoUsuarioLogado);
 
+if(isset($_POST['atualizar'])){
+  $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
+  $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_SPECIAL_CHARS);
+  $resumo = filter_input(INPUT_POST, 'resumo', FILTER_SANITIZE_SPECIAL_CHARS);
+
+  /* Lógica de atualização da foto */
+
+  /* 1) Se o campo imagem estiver vazio, significa que o usuário
+  NÃO QUER trocar de imagem. Ou seja, o sistema vai manter a imagem
+  existente. */
+  if( empty($_FILES['imagem']['name']) ){
+    $imagem = $_POST['imagem-existente'];   
+  } else {
+  /* 2) Senão, pegue a referência (nome e extensão) da nova imagem
+  e faça o processo de upload para o servidor */
+    $imagem = $_FILES['imagem']['name'];
+    upload($_FILES['imagem']);
+  }
+
+  /*  Somente depois do processo de upload (se necessário), 
+  chamaremos a função de atualizarPost */
+  atualizarPost($conexao, $idPost, $idUsuarioLogado, 
+      $tipoUsuarioLogado, $titulo, $texto, $resumo, $imagem);
+
+  header("location:posts.php");
+}
 ?>
        
 <div class="row">
   <article class="col-12 bg-white rounded shadow my-1 py-4">
     <h2 class="text-center">Atualizar Post</h2>
 
-    <form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar"> 
+    <form enctype="multipart/form-data" class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar"> 
         
       <div class="form-group">
         <label for="titulo">Título:</label>
@@ -33,13 +59,13 @@ $post = lerUmPost($conexao, $idPost, $idUsuarioLogado, $tipoUsuarioLogado);
       <div class="form-group">
         <label for="resumo">Resumo (máximo de 300 caracteres):</label>
         <span id="maximo" class="badge badge-success">0</span>
-        <textarea class="form-control" name="resumo" id="resumo" cols="50" rows="3" required maxlength="300"></textarea>
+        <textarea class="form-control" name="resumo" id="resumo" cols="50" rows="3" required maxlength="300"><?=$post['resumo']?></textarea>
       </div>
       
       <div class="form-group">
         <label for="imagem-existente">Imagem do post:</label>
         <!-- campo somente leitura, meramente informativo -->
-        <input class="form-control" type="text" id="imagem-existente" name="imagem-existente" readonly>
+        <input value="<?=$post['imagem']?>" class="form-control" type="text" id="imagem-existente" name="imagem-existente" readonly>
       </div>            
           
       <div class="form-group">
