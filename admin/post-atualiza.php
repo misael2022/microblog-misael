@@ -12,9 +12,6 @@ $tipoUsuarioLogado = $_SESSION['tipo'];
 // Chamamos a função passando os parâmetros e pegamos o resultado dela
 $post = lerUmPost($conexao, $idPost, $idUsuarioLogado, $tipoUsuarioLogado);
 
-echo "<pre>";
-var_dump($post);
-echo "</pre>";
 ?>
        
 <div class="row">
@@ -25,12 +22,12 @@ echo "</pre>";
         
       <div class="form-group">
         <label for="titulo">Título:</label>
-        <input class="form-control" type="text" id="titulo" name="titulo" required>
+        <input value="<?=$post['titulo']?>" class="form-control" type="text" id="titulo" name="titulo" required>
       </div>
       
       <div class="form-group">
         <label for="texto">Texto:</label>
-        <textarea class="form-control" name="texto" id="texto" cols="50" rows="10" required></textarea>
+        <textarea class="form-control" name="texto" id="texto" cols="50" rows="10" required><?=$post['texto']?></textarea>
       </div>
       
       <div class="form-group">
