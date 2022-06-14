@@ -64,4 +64,4 @@ $quantidade = count($posts);
 </div>
      
 
-<?php require "../inc/rodape-admin.php"; ?> 
+<?php require "../inc/rodape-admin.php"; ?>
